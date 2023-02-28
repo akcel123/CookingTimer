@@ -7,13 +7,9 @@
 
 import UIKit
 
-protocol AddNewTimerViewDelegate: AnyObject {
-    func startButtonTapped(timeInSeconds: Int, name: String)
-}
-
-
 final class AddNewTimerView: UIView {
 
+    //MARK: - UI private properties
     private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +47,8 @@ final class AddNewTimerView: UIView {
         addSubview(startButton)
         addSubview(nameTextField)
         
-        timePickerView.selectedRow(inComponent: 0)
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        
-        
+
         setupConstraints()
         timePickerView.dataSource = self
         timePickerView.delegate = self
@@ -82,8 +76,6 @@ private extension AddNewTimerView {
         NSLayoutConstraint.activate([
             timePickerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             timePickerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            timePickerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-//            timePickerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             timePickerView.heightAnchor.constraint(equalToConstant: 256),
             
             nameTextField.topAnchor.constraint(equalTo: timePickerView.bottomAnchor, constant: 32),
@@ -158,7 +150,7 @@ extension AddNewTimerView: UIPickerViewDelegate, UIPickerViewDataSource {
 
 }
 
-
+//MARK: - UITextFieldDelegate
 extension AddNewTimerView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

@@ -17,13 +17,7 @@ class MainView: UIView, MainViewProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
-        // TODO: Tестирование
-
-        
-        
-        
-        insertSubview(timerCollectionView, at: 0)
+        addSubview(timerCollectionView)
         NSLayoutConstraint.activate([
             timerCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             timerCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
@@ -69,9 +63,7 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // Количество ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //тесты
         return delegate?.getNumOfTimers() ?? 0
-        
     }
     
     
@@ -91,7 +83,7 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
 extension MainView: UICollectionViewDelegateFlowLayout {
     // Размер ячейки
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.width - 32) / 2 // 16 - это сумма отступов между ячейками
+        let cellWidth = (collectionView.frame.width - 32) / 2
         return CGSize(width: cellWidth, height: cellWidth)
     }
 
@@ -114,5 +106,12 @@ extension MainView: UICollectionViewDelegateFlowLayout {
         let cell = collectionView.cellForItem(at: indexPath) as! TimerCollectionViewCell
         cell.toggleAnimation()
        
+    }
+    
+    // вызывается перед отображением ячейки
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! TimerCollectionViewCell
+        let (_, currentTime, endTime): (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
+        cell.updateTime(time: endTime - currentTime)
     }
 }

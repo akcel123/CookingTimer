@@ -1,30 +1,38 @@
 import UIKit
 
-
-
-// TODO: в данный момент при окончании анимации отрисовывается контур, нужно ИМЕННО в момент окончания анимации убрать контур
 class TimerCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TimerCollectionViewCell"
+    
+    private let strokeCircleLineColor = UIColor.green.cgColor
+    private let lineWidth: CGFloat = 3
     
     private let animation = CABasicAnimation(keyPath: "strokeEnd")
     private var isAnumationPaused = false
     private lazy var circleLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.lineWidth = 3
-        layer.strokeColor = UIColor.green.cgColor
+        layer.lineWidth = self.lineWidth
+        layer.strokeColor = self.strokeCircleLineColor
         layer.fillColor = UIColor.clear.cgColor
-        
         return layer
     }()
+    
+    private lazy var backgroundCircleLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.lineWidth = self.lineWidth
+        layer.strokeColor = UIColor.gray.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        return layer
+    }()
+
+
+            
     
     private var timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 32)
-
-        label.text = "DD:HH:SS"
         return label
     }()
     
@@ -33,16 +41,13 @@ class TimerCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
-
-        label.text = "typical name bla bla bla bla bla bla "
         return label
     }()
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        
-        
+
         contentView.addSubview(timeLabel)
         contentView.addSubview(nameLabel)
         
@@ -56,7 +61,6 @@ class TimerCollectionViewCell: UICollectionViewCell {
             timeLabel.heightAnchor.constraint(equalToConstant: self.frame.height / 2),
             
             nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            //nameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor, constant: 4),
             nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -72,37 +76,41 @@ class TimerCollectionViewCell: UICollectionViewCell {
     }
     
 
+    
+    // MARK: - public functions
     private func setupRoundRectLayer() {
         layer.cornerRadius = contentView.bounds.height / 4
         let cornerRectPath = UIBezierPath(roundedRect: layer.bounds, cornerRadius: layer.cornerRadius)
+        backgroundCircleLayer.path = cornerRectPath.cgPath
+        layer.addSublayer(backgroundCircleLayer)
         circleLayer.path = cornerRectPath.cgPath
         layer.addSublayer(circleLayer)
-        
-
     }
     
     public func setupTimer(name: String, currentTime: Int, endTime: Int) {
         if currentTime == endTime {
-            circleLayer.removeAllAnimations()
             return
         }
-        
         nameLabel.text = name
+        circleLayer.strokeColor = self.strokeCircleLineColor
         animation.duration = Double(endTime - currentTime) // время
         animation.fromValue = 1.0 - Double(currentTime) / Double(endTime)
         animation.toValue = 0.0
-        
+        animation.isRemovedOnCompletion = false
         circleLayer.add(animation, forKey: "drawCircleAnimation")
         
         
     }
     
     public func updateTime(time: Int) {
+        if time == 0 {
+            timeLabel.text = "completed"
+            circleLayer.strokeColor = UIColor.clear.cgColor
+            return
+        }
         timeLabel.text = time.getTimeString()
-
-        
     }
-    
+
     public func toggleAnimation() {
         if !isAnumationPaused {
             let pausedTime = circleLayer.convertTime(CACurrentMediaTime(), from: nil)

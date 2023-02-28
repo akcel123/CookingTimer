@@ -13,7 +13,7 @@ extension Int {
         let min = String(format: "%02d", self / 60 % 60)
         let sec = String(format: "%02d", self % 60)
         
-        return String(hour) + " : " + String(min) + " : " + String(sec)
+        return self / 3600 == 0 ? String(min) + " : " + String(sec) : String(hour) + " : " + String(min) + " : " + String(sec)
     }
     
     

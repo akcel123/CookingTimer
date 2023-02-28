@@ -33,8 +33,6 @@ final class MainViewController: UIViewController {
         setupNavigationBar()
         view.backgroundColor = .systemCyan
 
-        
-        // TODO: тесты
         mainView = MainView(frame: view.bounds)
         mainView.delegate = self
         view.addSubview(mainView as! UIView)
