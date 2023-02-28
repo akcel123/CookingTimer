@@ -31,11 +31,19 @@ final class MainViewController: UIViewController {
         setupNavigationBar()
         view.backgroundColor = .systemCyan
 
+        //load models and startTimers
+        loadModelFromUserDefaults()
+        
+        
         mainView = MainView(frame: view.bounds)
         mainView.delegate = self
         view.addSubview(mainView as! UIView)
     }
- 
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
 }
 
 
@@ -67,16 +75,16 @@ private extension MainViewController {
     
 }
 
-//MARK: MainViewDelegate
+//MARK: -  MainViewDelegate
 extension MainViewController: MainViewDelegate {
     func toggleWorkingTimerWithIndex(_ index: Int) {
-        timerModels[index].stopTimer()
+        timerModels[index].pauseTimer()
         
     }
     
 
     func getTimerWithIndex(_ index: Int) -> (String, Int, Int) {
-        return (timerModels[index].name ?? "", timerModels[index].currentTime, timerModels[index].timeIncSeconds)
+        return (timerModels[index].name ?? "", timerModels[index].currentTime, timerModels[index].endTimeInSeconds)
     }
     
     func getNumOfTimers() -> Int {
@@ -109,3 +117,33 @@ private extension MainViewController {
   }
 }
 
+
+// MARK: - User Defaults
+extension MainViewController {
+    public func saveModelToUserDefaults() {
+        var names: [String] = []
+        var msTimes: [Double] = []
+        var endTimes: [Int] = []
+        for timers in timerModels {
+            let (name, msTime, endTime) = timers.getPropForUserDefaults()
+            names.append(name)
+            msTimes.append(msTime)
+            endTimes.append(endTime)
+        }
+        UserDefaults.standard.set(names, forKey: UserDefaultsKeys.nameString)
+        UserDefaults.standard.set(msTimes, forKey: UserDefaultsKeys.msTime)
+        UserDefaults.standard.set(endTimes, forKey: UserDefaultsKeys.endTime)
+    }
+    
+    private func loadModelFromUserDefaults() {
+        guard let names = UserDefaults.standard.array(forKey: UserDefaultsKeys.nameString) as? [String],
+                let msTimes = UserDefaults.standard.array(forKey: UserDefaultsKeys.msTime) as? [Double],
+                let endTimes = UserDefaults.standard.array(forKey: UserDefaultsKeys.endTime) as? [Int] else { return }
+        for i in 0..<names.count {
+            let timerModel = TimerModel(timeIncSeconds: endTimes[i])
+            timerModel.setPropForUserDefaults(name: names[i], msTime: msTimes[i], endTime: endTimes[i])
+            self.timerModels.append(timerModel)
+        }
+        createTimer()
+    }
+}
