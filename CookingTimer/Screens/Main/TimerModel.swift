@@ -5,7 +5,12 @@ import Foundation
 class TimerModel {
     var name: String?
     var timeIncSeconds: Int
-    var currentTime: Int = 0
+    
+    var currentTime: Int {
+        print(Int(msTime))
+        return Int(msTime)
+        
+    }
     var isWorking = false
     var isPaused = true
     init(name: String? = nil, timeIncSeconds: Int) {
@@ -13,9 +18,11 @@ class TimerModel {
         self.timeIncSeconds = timeIncSeconds
     }
     
+    private var msTime: Double = 0.0
+    
     func tick() {
         if self.isWorking && !self.isPaused {
-            self.currentTime += 1
+            self.msTime += 0.1
             if self.currentTime == self.timeIncSeconds {
                 self.isWorking = false
             }

@@ -1,5 +1,8 @@
 import UIKit
 
+
+// TODO: реализовать 
+
 class TimerCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TimerCollectionViewCell"
@@ -104,6 +107,7 @@ class TimerCollectionViewCell: UICollectionViewCell {
     
     public func updateTime(time: Int) {
         if time == 0 {
+            print("completed")
             timeLabel.text = "completed"
             circleLayer.strokeColor = UIColor.clear.cgColor
             return

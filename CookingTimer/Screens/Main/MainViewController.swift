@@ -24,9 +24,7 @@ final class MainViewController: UIViewController {
             mainView.updateTimeLabelInCells()
         }
     }
-    private var clockTimer: Timer?
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -90,32 +88,20 @@ extension MainViewController: MainViewDelegate {
 
 
 // MARK: - Timer
-extension MainViewController {
+private extension MainViewController {
     func createTimer() {
-        if clockTimer == nil {
-            let timer = Timer(timeInterval: 1.0,
-                            target: self,
-                            selector: #selector(updateTimer),
-                            userInfo: nil,
-                            repeats: true)
-            RunLoop.current.add(timer, forMode: .common)
-            timer.tolerance = 0.1
-          
-            clockTimer = timer
-        }
-    
+        TimerManager.shared.startTimer()
+        TimerManager.shared.tick = updateTimer
         for timer in timerModels {
             timer.startTimer()
         }
-      
   }
   
   func cancelTimer() {
-    clockTimer?.invalidate()
-    clockTimer = nil
+      TimerManager.shared.stopTimer()
   }
   
-  @objc func updateTimer() {
+  func updateTimer() {
       for timer in timerModels {
           timer.tick()
       }

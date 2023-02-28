@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BA464E0929AC9B48006F7794 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E0829AC9B48006F7794 /* Int+.swift */; };
 		BA464E0B29ADB114006F7794 /* AddNewTimerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E0A29ADB114006F7794 /* AddNewTimerViewDelegate.swift */; };
+		BA464E0E29ADBE95006F7794 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E0D29ADBE95006F7794 /* TimerManager.swift */; };
 		BA4DF09E29A753C1002526E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DF09D29A753C1002526E8 /* AppDelegate.swift */; };
 		BA4DF0A029A753C1002526E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DF09F29A753C1002526E8 /* SceneDelegate.swift */; };
 		BA4DF0A729A753C2002526E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4DF0A629A753C2002526E8 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		BA464E0829AC9B48006F7794 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		BA464E0A29ADB114006F7794 /* AddNewTimerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTimerViewDelegate.swift; sourceTree = "<group>"; };
+		BA464E0D29ADBE95006F7794 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BA4DF09A29A753C1002526E8 /* CookingTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookingTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4DF09D29A753C1002526E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA4DF09F29A753C1002526E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		BA464E0C29ADBE87006F7794 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BA464E0D29ADBE95006F7794 /* TimerManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		BA4DF09129A753C1002526E8 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 		BA4DF09C29A753C1002526E8 /* CookingTimer */ = {
 			isa = PBXGroup;
 			children = (
+				BA464E0C29ADBE87006F7794 /* Managers */,
 				BA464E0729AC9B34006F7794 /* Extensions */,
 				BA4DF0B329A75569002526E8 /* Screens */,
 				BA4DF09D29A753C1002526E8 /* AppDelegate.swift */,
@@ -198,6 +209,7 @@
 				BA4DF0C729AB7025002526E8 /* TimePickerViewCell.swift in Sources */,
 				BA4DF0A029A753C1002526E8 /* SceneDelegate.swift in Sources */,
 				BA4DF0BF29AA0CC4002526E8 /* MainViewProtocol.swift in Sources */,
+				BA464E0E29ADBE95006F7794 /* TimerManager.swift in Sources */,
 				BA4DF0BB29A755D9002526E8 /* TimerModel.swift in Sources */,
 				BA4DF0BD29A7560A002526E8 /* TimerCollectionViewCell.swift in Sources */,
 				BA4DF0B929A755B0002526E8 /* MainView.swift in Sources */,
