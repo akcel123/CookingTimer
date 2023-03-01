@@ -16,7 +16,8 @@ final class AddNewTimerView: UIView {
         textField.placeholder = "Название таймера"
         textField.returnKeyType = .done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .tertiarySystemBackground
+        textField.layer.cornerRadius = 4
         return textField
     }()
     
@@ -32,9 +33,10 @@ final class AddNewTimerView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Старт", for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = .systemGreen
         button.isEnabled = false
         button.alpha = 0.5
+        button.layer.cornerRadius = 8
         return button
     }()
     
@@ -83,11 +85,10 @@ private extension AddNewTimerView {
             nameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
             nameTextField.heightAnchor.constraint(equalToConstant: 32),
             
-            //timePickerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             startButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 32),
             startButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -32),
             startButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            startButton.heightAnchor.constraint(equalToConstant: 128)
+            startButton.heightAnchor.constraint(equalToConstant: 64)
             
         
         
@@ -107,7 +108,7 @@ extension AddNewTimerView: UIPickerViewDelegate, UIPickerViewDataSource {
         case 0: return 24
         case 1: return 60
         case 2: return 60
-        default: return 1
+        default: return 0
         }
     }
     

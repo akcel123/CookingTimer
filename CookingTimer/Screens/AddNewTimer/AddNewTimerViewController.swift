@@ -25,7 +25,7 @@ class AddNewTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .secondarySystemBackground
         
         addNewTimerView = AddNewTimerView(frame: view.bounds)
         addNewTimerView.delegate = self

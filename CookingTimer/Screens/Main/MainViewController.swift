@@ -29,7 +29,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupNavigationBar()
-        view.backgroundColor = .systemCyan
+        view.backgroundColor = .secondarySystemBackground
 
         //load models and startTimers
         loadModelFromUserDefaults()

@@ -7,7 +7,7 @@ class MainView: UIView, MainViewProtocol {
         
         let timerCollectionView = UICollectionView(frame: .zero, collectionViewLayout:  UICollectionViewFlowLayout())
         timerCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        timerCollectionView.backgroundColor = .blue
+        timerCollectionView.backgroundColor = .secondarySystemBackground
         timerCollectionView.register(TimerCollectionViewCell.self, forCellWithReuseIdentifier: TimerCollectionViewCell.reuseIdentifier)
     
         
@@ -49,7 +49,12 @@ class MainView: UIView, MainViewProtocol {
         for indexPath in visibleRowsIndexPaths {
           if let cell = timerCollectionView.cellForItem(at: indexPath) as? TimerCollectionViewCell {
               let (_, currentTime, endTime) : (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
-              cell.updateTime(time: endTime - currentTime)
+              if endTime == currentTime {
+                  cell.updateTime(time: "completed")
+                  cell.endAnimation()
+              } else {
+                  cell.updateTime(time: (endTime - currentTime).getTimeString())
+              }
           }
         }
     }
@@ -70,11 +75,16 @@ extension MainView: UICollectionViewDelegate, UICollectionViewDataSource {
     // Инициализация ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimerCollectionViewCell.reuseIdentifier, for: indexPath) as! TimerCollectionViewCell
-        cell.backgroundColor = .red
         
         let (name, currentTime, endTime): (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
         cell.setupTimer(name: name, currentTime: currentTime, endTime: endTime)
-        cell.updateTime(time: endTime - currentTime)
+        if endTime == currentTime {
+            cell.updateTime(time: "completed")
+            cell.endAnimation()
+        } else {
+            cell.updateTime(time: (endTime - currentTime).getTimeString())
+        }
+        
         return cell
     }
 }
@@ -112,6 +122,11 @@ extension MainView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! TimerCollectionViewCell
         let (_, currentTime, endTime): (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
-        cell.updateTime(time: endTime - currentTime)
+        if endTime == currentTime {
+            cell.updateTime(time: "completed")
+            cell.endAnimation()
+        } else {
+            cell.updateTime(time: (endTime - currentTime).getTimeString())
+        }
     }
 }

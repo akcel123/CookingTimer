@@ -3,7 +3,7 @@ import UIKit
 
 // TODO: реализовать 
 
-class TimerCollectionViewCell: UICollectionViewCell {
+class TimerCollectionViewCell: UICollectionViewCell, CAAnimationDelegate {
     
     static let reuseIdentifier = "TimerCollectionViewCell"
     
@@ -55,7 +55,8 @@ class TimerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         
         setupRoundRectLayer()
-        
+        animation.delegate = self
+        backgroundColor = .systemGray3
         NSLayoutConstraint.activate([
             timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             timeLabel.topAnchor.constraint(equalTo: self.topAnchor),
@@ -105,13 +106,12 @@ class TimerCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func updateTime(time: Int) {
-        if time == 0 {
-            timeLabel.text = "completed"
-            circleLayer.strokeColor = UIColor.clear.cgColor
-            return
-        }
-        timeLabel.text = time.getTimeString()
+    public func updateTime(time: String) {
+        timeLabel.text = time
+    }
+    
+    public func endAnimation() {
+        circleLayer.strokeColor = UIColor.clear.cgColor
     }
 
     public func toggleAnimation() {

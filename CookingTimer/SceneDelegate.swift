@@ -45,6 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         //guard let mainVC = window?.rootViewController as? MainViewController else { return }
+        //TODO: тут лучше не делать это действие, получается хуйня какая то, разобраться
+        
         mainVC.saveModelToUserDefaults()
     }
 
