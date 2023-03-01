@@ -32,16 +32,12 @@ final class MainViewController: UIViewController {
         view.backgroundColor = .secondarySystemBackground
 
         //load models and startTimers
-        loadModelFromUserDefaults()
-        
+        timerModels = loadModelFromUserDefaults()
+        TimerManager.shared.enterForeground()
         
         mainView = MainView(frame: view.bounds)
         mainView.delegate = self
         view.addSubview(mainView as! UIView)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
     }
     
 }
@@ -135,15 +131,17 @@ extension MainViewController {
         UserDefaults.standard.set(endTimes, forKey: UserDefaultsKeys.endTime)
     }
     
-    private func loadModelFromUserDefaults() {
+    private func loadModelFromUserDefaults() -> [TimerModel] {
+        var models: [TimerModel] = []
         guard let names = UserDefaults.standard.array(forKey: UserDefaultsKeys.nameString) as? [String],
                 let msTimes = UserDefaults.standard.array(forKey: UserDefaultsKeys.msTime) as? [Double],
-                let endTimes = UserDefaults.standard.array(forKey: UserDefaultsKeys.endTime) as? [Int] else { return }
+                let endTimes = UserDefaults.standard.array(forKey: UserDefaultsKeys.endTime) as? [Int] else { return [] }
         for i in 0..<names.count {
             let timerModel = TimerModel(timeIncSeconds: endTimes[i])
             timerModel.setPropForUserDefaults(name: names[i], msTime: msTimes[i], endTime: endTimes[i])
-            self.timerModels.append(timerModel)
+            models.append(timerModel)
         }
         createTimer()
+        return models
     }
 }

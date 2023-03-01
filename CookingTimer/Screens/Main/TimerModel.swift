@@ -7,7 +7,7 @@ class TimerModel {
     var endTimeInSeconds: Int
     
     var currentTime: Int {
-        //print(Int(msTime))
+        
         return Int(msTime)
         
     }

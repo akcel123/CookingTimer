@@ -22,8 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
 
+    // вызовется только при закрытии приложения
     func sceneDidDisconnect(_ scene: UIScene) {
         mainVC.saveModelToUserDefaults()
+        TimerManager.shared.enterBackground()
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
@@ -41,12 +43,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        
+        TimerManager.shared.enterForeground()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-
-        
+        TimerManager.shared.enterBackground()
     }
 
 

@@ -11,4 +11,6 @@ enum UserDefaultsKeys {
     static let nameString = "timer.name.array"
     static let msTime = "timer.msTime.array"
     static let endTime = "timer.endTime.array"
+    
+    static let enterBackgroundTime = "enter.background.time"
 }

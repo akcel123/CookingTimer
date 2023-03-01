@@ -11,6 +11,10 @@ class TimerManager {
     
     static let shared = TimerManager()
     
+    private let userDefaults = UserDefaults.standard
+    
+    private var enterBackgroundTime: Date?
+    private var diffTime: Int?
     
     
     var isRunning: Bool {
@@ -31,7 +35,7 @@ class TimerManager {
         }
         
         RunLoop.current.add(timer!, forMode: .common)
-        timer!.tolerance = 0.1
+        timer!.tolerance = 0.01
     }
     
     func stopTimer() {
@@ -39,4 +43,30 @@ class TimerManager {
         timer = nil
     }
     
+}
+
+// MARK: - background working
+
+extension TimerManager {
+    func enterBackground() {
+        stopTimer()
+        enterBackgroundTime = Date()
+        userDefaults.set(enterBackgroundTime, forKey: UserDefaultsKeys.enterBackgroundTime)
+    }
+    
+    func enterForeground() {
+        startTimer()
+        enterBackgroundTime = userDefaults.object(forKey: UserDefaultsKeys.enterBackgroundTime) as? Date
+        guard let enterBackgroundTime = enterBackgroundTime else { return }
+        let diffTime = Date().timeIntervalSince(enterBackgroundTime)
+        self.diffTime = Int(diffTime)
+        restoreTime()
+    }
+    
+    private func restoreTime() {
+        guard let diffTime = diffTime else { return }
+        for _ in 0..<Int(diffTime * 10) {
+            self.tick()
+        }
+    }
 }
