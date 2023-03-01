@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        mainVC.saveModelToUserDefaults()
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
@@ -44,10 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        //guard let mainVC = window?.rootViewController as? MainViewController else { return }
-        //TODO: тут лучше не делать это действие, получается хуйня какая то, разобраться
+
         
-        mainVC.saveModelToUserDefaults()
     }
 
 
