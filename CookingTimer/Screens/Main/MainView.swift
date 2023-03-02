@@ -121,7 +121,8 @@ extension MainView: UICollectionViewDelegateFlowLayout {
     // вызывается перед отображением ячейки
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! TimerCollectionViewCell
-        let (_, currentTime, endTime): (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
+        let (name, currentTime, endTime): (String, Int, Int) = delegate?.getTimerWithIndex(indexPath.row) ?? ("", 0, 0)
+        cell.updateNameLabel(name: name)
         if endTime == currentTime {
             cell.updateTime(time: "completed")
             cell.endAnimation()

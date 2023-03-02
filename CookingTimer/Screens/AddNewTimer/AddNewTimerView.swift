@@ -42,6 +42,8 @@ final class AddNewTimerView: UIView {
     
     weak var delegate: (AddNewTimerViewDelegate)?
     
+    
+    // MARK: - constructor
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -155,5 +157,16 @@ extension AddNewTimerView: UIPickerViewDelegate, UIPickerViewDataSource {
 extension AddNewTimerView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+    }
+    
+    // Утснавливаем максимальное количество вводимых символов (если вставить текст, то его потом нельзя редактировать
+    // не знаю как это исправить и нужно ли
+    // Update: добавление проверки количества символов в string позволяет запретить вставку больше символов, чем maxLength
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 5
+        if string.count > maxLength {
+            return false
+        }
+        return range.location <= maxLength - 1
     }
 }

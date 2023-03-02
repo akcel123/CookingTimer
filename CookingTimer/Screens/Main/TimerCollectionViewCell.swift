@@ -1,7 +1,7 @@
 import UIKit
 
 
-// TODO: реализовать 
+// TODO: Исправить текст в лейблах, проблема стоит в его размере, нужно сделать адаптивный, чтобы при малых экранах не было проблем
 
 class TimerCollectionViewCell: UICollectionViewCell, CAAnimationDelegate {
     
@@ -36,6 +36,8 @@ class TimerCollectionViewCell: UICollectionViewCell, CAAnimationDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 32)
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -44,6 +46,7 @@ class TimerCollectionViewCell: UICollectionViewCell, CAAnimationDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -104,6 +107,10 @@ class TimerCollectionViewCell: UICollectionViewCell, CAAnimationDelegate {
         circleLayer.add(animation, forKey: "drawCircleAnimation")
         
         
+    }
+    
+    public func updateNameLabel(name: String) {
+        nameLabel.text = name
     }
     
     public func updateTime(time: String) {
