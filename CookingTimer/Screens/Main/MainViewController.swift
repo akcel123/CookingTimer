@@ -145,3 +145,22 @@ extension MainViewController {
         return models
     }
 }
+
+//MARK: - user notifications
+extension MainViewController {
+    public func getNotificationParameters() -> ([String],[Int]) {
+        var names: [String] = []
+        var timesForEndTimers: [Int] = []
+        for timer in timerModels {
+            if timer.isWorking {
+                names.append(timer.name ?? "")
+                timesForEndTimers.append(timer.endTimeInSeconds - timer.currentTime)
+
+            }
+        }
+        
+        return (names, timesForEndTimers)
+        
+        
+    }
+}

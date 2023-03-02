@@ -163,7 +163,7 @@ extension AddNewTimerView: UITextFieldDelegate {
     // не знаю как это исправить и нужно ли
     // Update: добавление проверки количества символов в string позволяет запретить вставку больше символов, чем maxLength
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 5
+        let maxLength = 30
         if string.count > maxLength {
             return false
         }

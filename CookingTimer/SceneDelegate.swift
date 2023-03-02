@@ -11,7 +11,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let mainVC = MainViewController(nibName: nil, bundle: nil)
-
+    // флаг окончания сохранения модели, сохранения состояния таймера и формирования уведломлений
+    var modelSaved = false
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -24,8 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // вызовется только при закрытии приложения
     func sceneDidDisconnect(_ scene: UIScene) {
-        mainVC.saveModelToUserDefaults()
-        TimerManager.shared.enterBackground()
+        enterBackground()
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
@@ -44,12 +46,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         TimerManager.shared.enterForeground()
+        NotificationManager().removeAllNotifications()
+        modelSaved = false
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        TimerManager.shared.enterBackground()
+        enterBackground()
     }
 
+    private func enterBackground() {
+        guard !modelSaved else { return }
+        modelSaved = true
+        TimerManager.shared.enterBackground()
+        mainVC.saveModelToUserDefaults()
+        
+        let manager = NotificationManager()
+        let modelParams = mainVC.getNotificationParameters()
+        
+        for i in 0 ..< min(modelParams.0.count, modelParams.1.count) {
+            manager.notificationRequest(title: "Готово", subtitle: nil, body: "Блюдо \(modelParams.0[i]) приготовилось", timeSinceNow: modelParams.1[i])
+        }
+    }
 
 }
 
