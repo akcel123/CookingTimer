@@ -12,6 +12,7 @@
 		BA464E0E29ADBE95006F7794 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E0D29ADBE95006F7794 /* TimerManager.swift */; };
 		BA464E1029ADE7FD006F7794 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E0F29ADE7FD006F7794 /* UserDefaultsKeys.swift */; };
 		BA464E1929B06BDE006F7794 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA464E1829B06BDE006F7794 /* NotificationManager.swift */; };
+		BA464E1B29B09A63006F7794 /* Trill.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BA464E1A29B09A63006F7794 /* Trill.mp3 */; };
 		BA4DF09E29A753C1002526E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DF09D29A753C1002526E8 /* AppDelegate.swift */; };
 		BA4DF0A029A753C1002526E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4DF09F29A753C1002526E8 /* SceneDelegate.swift */; };
 		BA4DF0A729A753C2002526E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4DF0A629A753C2002526E8 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		BA464E0D29ADBE95006F7794 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		BA464E0F29ADE7FD006F7794 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		BA464E1829B06BDE006F7794 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		BA464E1A29B09A63006F7794 /* Trill.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Trill.mp3; sourceTree = "<group>"; };
 		BA4DF09A29A753C1002526E8 /* CookingTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookingTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4DF09D29A753C1002526E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA4DF09F29A753C1002526E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				BA4DF0A629A753C2002526E8 /* Assets.xcassets */,
 				BA4DF0A829A753C2002526E8 /* LaunchScreen.storyboard */,
 				BA4DF0AB29A753C2002526E8 /* Info.plist */,
+				BA464E1A29B09A63006F7794 /* Trill.mp3 */,
 			);
 			path = CookingTimer;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA464E1B29B09A63006F7794 /* Trill.mp3 in Resources */,
 				BA4DF0AA29A753C2002526E8 /* LaunchScreen.storyboard in Resources */,
 				BA4DF0A729A753C2002526E8 /* Assets.xcassets in Resources */,
 			);

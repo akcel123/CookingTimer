@@ -21,7 +21,8 @@ class NotificationManager {
         content.subtitle = subtitle ?? ""
         content.body = body
         content.badge = 1
-        content.sound = UNNotificationSound.default
+//        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "Trill.mp3"))
         let notificationIdentifier = "local.notifications.\(title ?? "").\(subtitle ?? "").\(body).\(String(timeSinceNow)).\(String(Self.requestId))"
         Self.requestId += 1
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: timeTrigger)
